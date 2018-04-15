@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GentleReminder</string>
+    <string name="new_test">New Test</string>
+    <string name="edit">Edit Reminder</string>
+    <string name="delete">Delete Reminder</string>
+    <string name="title">Reminder Title</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>
