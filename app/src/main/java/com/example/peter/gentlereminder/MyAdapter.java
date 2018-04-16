@@ -73,6 +73,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
             view2.setVisibility(View.VISIBLE);
         }
     }
+
+    public void fadeButtonClick(View view)
+    {
+        view.startAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_on_click));
+    }
+
     /**
      * Constructs the adapter
      *
@@ -99,6 +105,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         final View.OnClickListener editListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fadeButtonClick(v);
                 editPrompt(holder, v);
             }
         };
@@ -106,6 +113,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         final View.OnClickListener deleteListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fadeButtonClick(v);
                 int pos = holder.getAdapterPosition();
                 Toast.makeText(v.getContext(), "Delete button " + pos, Toast.LENGTH_SHORT).show();
                 reminderList.remove(pos);
