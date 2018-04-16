@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy)
             {
-                FloatingActionButton myFab = findViewById(R.id.floatingActionButton);
+                FloatingActionButton myFab = findViewById(R.id.myFab);
 
                 if(dy > 0 && myFab.getVisibility() == View.VISIBLE)
                 {
