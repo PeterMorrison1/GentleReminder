@@ -11,7 +11,6 @@ import android.widget.EditText;
 public class EditReminder extends Dialog
 {
     private Reminder reminderObject;
-    private boolean isDismissed = false;
 
     public EditReminder(Context context, Reminder reminderObject)
     {
@@ -19,10 +18,7 @@ public class EditReminder extends Dialog
         this.reminderObject = reminderObject;
     }
 
-    public boolean isDismissed()
-    {
-        return isDismissed;
-    }
+
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -38,7 +34,6 @@ public class EditReminder extends Dialog
             {
                 EditText title = findViewById(R.id.editTitle);
                 reminderObject.setTitle(title.getText().toString());
-                isDismissed = true;
                 dismiss();
             }
         });
