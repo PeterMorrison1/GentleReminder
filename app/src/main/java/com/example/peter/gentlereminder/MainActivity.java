@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.peter.gentlereminder.adapter.MyAdapter;
+import com.example.peter.gentlereminder.dialogs.EditReminder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             reminder = new Reminder();
             reminder.setTitle("Title: " + i);
             reminder.setNote("Note: " + i);
-            reminder.setCount(i);
             reminderList.add(reminder);
         }
     }

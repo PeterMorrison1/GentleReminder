@@ -4,8 +4,6 @@ public class Reminder {
     // instance vars
     private String title;
     private String note;
-    private int count;
-    private boolean clicked;
 
     public Reminder() {
         // empty constructor
@@ -32,19 +30,4 @@ public class Reminder {
         this.note = note;
     }
 
-    public boolean isClicked() {
-        return clicked;
-    }
-
-    public void setClicked(boolean clicked) {
-        this.clicked = clicked;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 }

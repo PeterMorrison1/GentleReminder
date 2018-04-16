@@ -1,4 +1,4 @@
-package com.example.peter.gentlereminder;
+package com.example.peter.gentlereminder.adapter;
 
 import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.peter.gentlereminder.dialogs.EditReminder;
+import com.example.peter.gentlereminder.R;
+import com.example.peter.gentlereminder.Reminder;
 
 import java.util.List;
 

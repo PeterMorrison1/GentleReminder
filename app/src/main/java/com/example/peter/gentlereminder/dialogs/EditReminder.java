@@ -1,4 +1,4 @@
-package com.example.peter.gentlereminder;
+package com.example.peter.gentlereminder.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.peter.gentlereminder.R;
+import com.example.peter.gentlereminder.Reminder;
 
 public class EditReminder extends Dialog
 {
