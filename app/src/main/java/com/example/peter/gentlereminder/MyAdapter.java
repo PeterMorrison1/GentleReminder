@@ -115,7 +115,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
             public void onClick(View v) {
                 fadeButtonClick(v);
                 int pos = holder.getAdapterPosition();
-                Toast.makeText(v.getContext(), "Delete button " + pos, Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Delete item at pos: " + pos, Toast.LENGTH_SHORT).show();
                 reminderList.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(holder.getAdapterPosition(), reminderList.size());
@@ -139,7 +139,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
             @Override
             public void onDismiss(DialogInterface dialog)
             {
-                Toast.makeText(v.getContext(), "Delete button " + pos, Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Edit item at pos: " + pos, Toast.LENGTH_SHORT).show();
                 notifyItemChanged(pos);
             }
         });

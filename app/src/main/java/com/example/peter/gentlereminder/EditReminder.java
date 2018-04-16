@@ -18,7 +18,6 @@ public class EditReminder extends Dialog
         this.reminderObject = reminderObject;
     }
 
-
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);

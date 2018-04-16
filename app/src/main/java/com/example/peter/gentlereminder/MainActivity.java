@@ -1,6 +1,6 @@
 package com.example.peter.gentlereminder;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +57,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
         testData();
+        addReminder();
     }
 
-    private void editReminder()
+    private void addReminder()
     {
-        Intent intent = new Intent(this, EditReminder.class);
+        FloatingActionButton myFab = findViewById(R.id.myFab);
+        myFab.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(final View v)
+            {
+                final Reminder newReminder = new Reminder();
+                EditReminder editReminder = new EditReminder(MainActivity.this, newReminder);
+                reminderList.add(newReminder);
 
+                editReminder.show();
+                editReminder.setOnDismissListener(new DialogInterface.OnDismissListener()
+                {
+                    @Override
+                    public void onDismiss(DialogInterface dialog)
+                    {
+                        mRecyclerView.getAdapter().notifyItemInserted(reminderList.indexOf(newReminder));
+                        Toast.makeText(v.getContext(), "Edit item at pos: " , Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     private void testData()
