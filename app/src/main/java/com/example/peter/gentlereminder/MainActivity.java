@@ -1,11 +1,13 @@
 package com.example.peter.gentlereminder;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Reminder> reminderList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +37,25 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration
                 (this, LinearLayoutManager.VERTICAL));
-        testData();
 
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                FloatingActionButton myFab = findViewById(R.id.floatingActionButton);
+
+                if(dy > 0 && myFab.getVisibility() == View.VISIBLE)
+                {
+                    myFab.hide();
+                }
+                else if(dy < 0 && myFab.getVisibility() != View.VISIBLE)
+                {
+                    myFab.show();
+                }
+            }
+        });
+
+        testData();
     }
 
     private void editReminder()
