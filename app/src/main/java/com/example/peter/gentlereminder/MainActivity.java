@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.peter.gentlereminder.adapter.MyAdapter;
+import com.example.peter.gentlereminder.database.DBHelper;
 import com.example.peter.gentlereminder.dialogs.EditReminder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,13 +22,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<Reminder> reminderList = new ArrayList<>();
-
+    private List<Reminder> reminderList;
+    DBHelper db = new DBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        reminderList = db.getAllReminders();
+
         mRecyclerView = findViewById(R.id.recycler_view);
 
         mRecyclerView.setHasFixedSize(true);
@@ -48,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
             {
                 FloatingActionButton myFab = findViewById(R.id.myFab);
 
-                if(dy > 0 && myFab.getVisibility() == View.VISIBLE)
+                if(dy == 0 && myFab.getVisibility() != View.VISIBLE)
+                {
+                    myFab.show();
+                }
+                else if(dy > 0 && myFab.getVisibility() == View.VISIBLE)
                 {
                     myFab.hide();
                 }
@@ -59,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        testData();
         addReminder();
     }
 
@@ -73,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
             {
                 final Reminder newReminder = new Reminder();
                 EditReminder editReminder = new EditReminder(MainActivity.this, newReminder);
-                reminderList.add(newReminder);
 
                 editReminder.show();
                 editReminder.setOnDismissListener(new DialogInterface.OnDismissListener()
@@ -81,8 +87,20 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog)
                     {
-                        mRecyclerView.getAdapter().notifyItemInserted(reminderList.indexOf(newReminder));
-                        Toast.makeText(v.getContext(), "Edit item at pos: " , Toast.LENGTH_SHORT).show();
+                        if(db.numOfRows() > 0)
+                        {
+                            newReminder.setId(db.numOfRows() + 1);
+                        }
+                        else
+                        {
+                            newReminder.setId(0);
+                        }
+                        reminderList.add(newReminder);
+                        db.addReminder(newReminder);
+                        mRecyclerView.getAdapter().
+                                notifyItemInserted(reminderList.indexOf(newReminder));
+                        Toast.makeText(v.getContext(), "Edit item at pos: ",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -92,12 +110,15 @@ public class MainActivity extends AppCompatActivity {
     private void testData()
     {
         Reminder reminder;
-
         for(int i = 0; i < 50; i++) {
             reminder = new Reminder();
             reminder.setTitle("Title: " + i);
             reminder.setNote("Note: " + i);
+            reminder.setId(i);
             reminderList.add(reminder);
+            db.addReminder(reminder);
         }
+        db.close();
     }
+
 }
