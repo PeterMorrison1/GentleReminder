@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new DividerItemDecoration
                 (this, LinearLayoutManager.VERTICAL));
 
+        // Hides floating action button when scrolling
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy)
@@ -70,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         addReminder();
     }
 
+    /**
+     * Adds a Prompts user to enter information for new reminder object
+     * then adds the reference to the object to the database and recyclerview
+     */
     private void addReminder()
     {
         FloatingActionButton myFab = findViewById(R.id.myFab);
