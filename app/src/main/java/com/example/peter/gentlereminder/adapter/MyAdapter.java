@@ -33,7 +33,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         this.reminderList = reminderList;
     }
 
-
+    // sets the onClickListener for the recyclerview item
+    // and sets the buttons for the RV item and shows/hides the buttons
     private final View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -71,6 +72,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         }
     }
 
+    /**
+     * Hides/shows the buttons of a recyclerview item when clicked
+     *
+     * @param view1 view of the edit button for the RV item that was clicked
+     * @param view2 view of the deleted button for the RV item that was clicked
+     */
     private void updateButtonVisibility(View view1, View view2)
     {
 
@@ -92,6 +99,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         }
     }
 
+
+    /**
+     * Fades the button for 0.2 seconds on click
+     *
+     * @param view  view of the button that was clicked
+     */
     private void fadeButtonClick(View view)
     {
         view.startAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_on_click));
@@ -152,6 +165,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         holder.button2.setOnClickListener(deleteListener);
     }
 
+    /**
+     * Calls the edit layout to appear when the edit button is clicked for the specific entry
+     *
+     * @param holder    the viewholder for the recyclerview
+     * @param v         the view of the item being edited
+     */
     private void editPrompt(ViewHolder holder, final View v)
     {
         final int pos = holder.getAdapterPosition();

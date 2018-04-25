@@ -15,12 +15,23 @@ public class EditReminder extends Dialog
 {
     private Reminder reminderObject;
 
+    /**
+     * Constructor for the edit reminder dialog
+     *
+     * @param context           the context of the activity/app
+     * @param reminderObject    reference to the reminder being edited
+     */
     public EditReminder(Context context, Reminder reminderObject)
     {
         super(context);
         this.reminderObject = reminderObject;
     }
 
+    /**
+     * Sets buttons and onClickListeners when dialog is created
+     *
+     * @param savedInstanceState    state of the app
+     */
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);

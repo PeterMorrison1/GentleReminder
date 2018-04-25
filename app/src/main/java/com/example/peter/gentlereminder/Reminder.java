@@ -6,37 +6,66 @@ public class Reminder {
     private String note;
     private int id;
 
-    public Reminder() {
+    /**
+     * Empty constructor for the reminder class
+     */
+    public Reminder()
+    {
         // empty constructor
     }
 
-    public Reminder(String title, String note) {
-        this.title = title;
-        this.note = note;
-    }
-
+    /**
+     * Gets the id
+     *
+     * @return  the id number for the reminder object
+     */
     public int getId()
     {
         return id;
     }
 
+    /**
+     * Sets the id
+     *
+     * @param id    the id number for the reminder object
+     */
     public void setId(int id)
     {
         this.id = id;
     }
 
+    /**
+     * Gets the title
+     *
+     * @return  title of the reminder
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets the title
+     *
+     * @param title the title to set for the reminder
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Gets the note
+     *
+     * @return  note of the reminder
+     */
     public String getNote() {
         return note;
     }
 
+    /**
+     * Sets the note
+     *
+     * @param note  the note to set for the reminder
+     */
     public void setNote(String note) {
         this.note = note;
     }
