@@ -61,7 +61,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
          *
          * @param view  the activity view
          */
-        public ViewHolder(View view)
+        private ViewHolder(View view)
         {
             super(view);
             title = view.findViewById(R.id.title);
@@ -71,7 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         }
     }
 
-    public void updateButtonVisibility(View view1, View view2)
+    private void updateButtonVisibility(View view1, View view2)
     {
 
         if(view1.getVisibility() == View.VISIBLE && view2.getVisibility() == View.VISIBLE)
@@ -92,7 +92,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         }
     }
 
-    public void fadeButtonClick(View view)
+    private void fadeButtonClick(View view)
     {
         view.startAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_on_click));
     }
@@ -152,7 +152,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         holder.button2.setOnClickListener(deleteListener);
     }
 
-    public void editPrompt(ViewHolder holder, final View v)
+    private void editPrompt(ViewHolder holder, final View v)
     {
         final int pos = holder.getAdapterPosition();
         EditReminder edit = new EditReminder(v.getContext(), reminderList.get(pos));

@@ -15,16 +15,16 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper
 {
     // database and table names
-    public static final String REMINDERS_DATABASE = "Reminders.db";
-    public static final String REMINDERS_TABLE = "reminders";
+    private static final String REMINDERS_DATABASE = "Reminders.db";
+    private static final String REMINDERS_TABLE = "reminders";
 
     // database version number
-    public static final int REMINDERS_VERSION = 1;
+    private static final int REMINDERS_VERSION = 1;
 
     // column names
-    public static final String COLUMN_ID = "id";
-    public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_NOTE = "note";
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_TITLE = "title";
+    private static final String COLUMN_NOTE = "note";
 
     public DBHelper(Context context)
     {
