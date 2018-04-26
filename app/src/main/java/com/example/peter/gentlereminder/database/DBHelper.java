@@ -40,7 +40,7 @@ public class DBHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         String CREATE_TABLE = "CREATE TABLE " + REMINDERS_TABLE + "("
-                + COLUMN_ID + " INTEGER PRIMARY KEY,"
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TITLE + " TEXT,"
                 + COLUMN_NOTE + " TEXT"
                 + ")";
@@ -65,7 +65,7 @@ public class DBHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(COLUMN_ID, reminder.getId());
+//        contentValues.put(COLUMN_ID, reminder.getId());
         contentValues.put(COLUMN_TITLE, reminder.getTitle());
         contentValues.put(COLUMN_NOTE, reminder.getNote());
 
@@ -166,5 +166,4 @@ public class DBHelper extends SQLiteOpenHelper
         db.delete(REMINDERS_TABLE, COLUMN_ID + "=?",
                 new String[]{String.valueOf(reminder.getId())});
     }
-
 }

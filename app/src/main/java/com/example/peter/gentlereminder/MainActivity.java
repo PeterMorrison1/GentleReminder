@@ -94,14 +94,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog)
                     {
-                        if(db.numOfRows() > 0)
-                        {
-                            newReminder.setId(db.numOfRows() + 1);
-                        }
-                        else
-                        {
-                            newReminder.setId(0);
-                        }
+//                        if(db.numOfRows() > 0)
+//                        {
+//                            newReminder.setId(db.numOfRows() + 1);
+//                        }
+//                        else
+//                        {
+//                            newReminder.setId(0);
+//                        }
 
                         if(!newReminder.isDeleted())
                         {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             reminder = new Reminder();
             reminder.setTitle("Title: " + i);
             reminder.setNote("Note: " + i);
-            reminder.setId(i);
+//            reminder.setId(i);
             reminderList.add(reminder);
             db.addReminder(reminder);
         }
