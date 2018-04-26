@@ -46,6 +46,7 @@ public class EditReminder extends Dialog
             {
                 EditText title = findViewById(R.id.editTitle);
                 reminderObject.setTitle(title.getText().toString());
+                reminderObject.setDeleted(false);
                 dismiss();
             }
         });
@@ -55,8 +56,10 @@ public class EditReminder extends Dialog
             @Override
             public void onClick(View v)
             {
+                reminderObject.setDeleted(true);
                 dismiss();
             }
         });
+
     }
 }

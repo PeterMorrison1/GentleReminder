@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 EditReminder editReminder = new EditReminder(MainActivity.this, newReminder);
 
                 editReminder.show();
+                editReminder.setCanceledOnTouchOutside(false);
+
                 editReminder.setOnDismissListener(new DialogInterface.OnDismissListener()
                 {
                     @Override
@@ -100,12 +102,21 @@ public class MainActivity extends AppCompatActivity {
                         {
                             newReminder.setId(0);
                         }
-                        reminderList.add(newReminder);
-                        db.addReminder(newReminder);
-                        mRecyclerView.getAdapter().
-                                notifyItemInserted(reminderList.indexOf(newReminder));
-                        Toast.makeText(v.getContext(), "Edit item at pos: ",
-                                Toast.LENGTH_SHORT).show();
+
+                        if(!newReminder.isDeleted())
+                        {
+                            reminderList.add(newReminder);
+                            db.addReminder(newReminder);
+                            mRecyclerView.getAdapter().
+                                    notifyItemInserted(reminderList.indexOf(newReminder));
+                            Toast.makeText(v.getContext(), "Edit item at pos: ",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(v.getContext(), "Reminder canceled.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

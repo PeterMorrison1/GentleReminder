@@ -5,6 +5,7 @@ public class Reminder {
     private String title;
     private String note;
     private int id;
+    private boolean deleted;
 
     /**
      * Empty constructor for the reminder class
@@ -12,6 +13,26 @@ public class Reminder {
     public Reminder()
     {
         // empty constructor
+    }
+
+    /**
+     * Get the deleted status
+     *
+     * @return  if the reminder is deleted
+     */
+    public boolean isDeleted()
+    {
+        return deleted;
+    }
+
+    /**
+     * Set if the reminder is deleted
+     *
+     * @param deleted   if the reminder is deleted
+     */
+    public void setDeleted(boolean deleted)
+    {
+        this.deleted = deleted;
     }
 
     /**
