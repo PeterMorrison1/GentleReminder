@@ -99,7 +99,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         }
     }
 
-
     /**
      * Fades the button for 0.2 seconds on click
      *
@@ -147,16 +146,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
                 Reminder reminderToDelete = reminderList.get(pos);
 
                 Toast.makeText(v.getContext(), "Delete item at pos: " +
-                        pos, Toast.LENGTH_SHORT).show();
+                        pos + " with id: " + reminderList.get(pos).getId(), Toast.LENGTH_SHORT).show();
 
                 reminderList.remove(reminderToDelete);
                 db.deleteReminder(reminderToDelete);
                 notifyItemRemoved(holder.getAdapterPosition());
 
-//                notifyDataSetChanged();
-//                notifyItemRangeChanged(holder.getAdapterPosition(), reminderList.size());
             }
         };
+
         final Reminder reminder = reminderList.get(position);
         holder.title.setText(reminder.getTitle());
         holder.note.setText(reminder.getNote());
@@ -176,6 +174,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         final int pos = holder.getAdapterPosition();
         EditReminder edit = new EditReminder(v.getContext(), reminderList.get(pos));
         edit.show();
+        edit.setCanceledOnTouchOutside(false);
         edit.setOnDismissListener(new DialogInterface.OnDismissListener()
         {
             @Override

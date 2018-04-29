@@ -6,4 +6,5 @@
     <string name="title">Reminder Title</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="title_hint">Name of your reminder</string>
 </resources>

@@ -1,18 +1,28 @@
 package com.example.peter.gentlereminder;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.peter.gentlereminder.adapter.MyAdapter;
 import com.example.peter.gentlereminder.database.DBHelper;
 import com.example.peter.gentlereminder.dialogs.EditReminder;
+import com.example.peter.gentlereminder.notifications.AlarmHelper;
 
 import java.util.List;
 
@@ -94,21 +104,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog)
                     {
-//                        if(db.numOfRows() > 0)
-//                        {
-//                            newReminder.setId(db.numOfRows() + 1);
-//                        }
-//                        else
-//                        {
-//                            newReminder.setId(0);
-//                        }
-
                         if(!newReminder.isDeleted())
                         {
                             reminderList.add(newReminder);
                             db.addReminder(newReminder);
                             mRecyclerView.getAdapter().
                                     notifyItemInserted(reminderList.indexOf(newReminder));
+                            addNotification(newReminder);
                             Toast.makeText(v.getContext(), "Edit item at pos: ",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -121,6 +123,13 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private void addNotification(Reminder reminder)
+    {
+        AlarmHelper alarmHelper = new AlarmHelper(this);
+        alarmHelper.setmReminder(reminder);
+        alarmHelper.scheduleNotification(alarmHelper.getNotification());
     }
 
     private void testData()
@@ -136,5 +145,4 @@ public class MainActivity extends AppCompatActivity {
         }
         db.close();
     }
-
 }
