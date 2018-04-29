@@ -70,6 +70,9 @@ public class DBHelper extends SQLiteOpenHelper
         contentValues.put(COLUMN_NOTE, reminder.getNote());
 
         db.insert(REMINDERS_TABLE, null, contentValues);
+        Cursor cursor = db.rawQuery("select * from " + REMINDERS_TABLE, null);
+        cursor.moveToLast();
+        reminder.setId(cursor.getInt(0));
         //TODO: Remove boolean later, make method void
         return true;
     }
