@@ -1,11 +1,14 @@
 package com.example.peter.gentlereminder;
 
+import java.util.Calendar;
+
 public class Reminder {
     // instance vars
     private String title;
     private String note;
     private int id;
     private boolean deleted;
+    private Calendar calendar;
 
     /**
      * Empty constructor for the reminder class
@@ -91,4 +94,23 @@ public class Reminder {
         this.note = note;
     }
 
+    /**
+     * Gets the reference to the calendar
+     *
+     * @return  reference to the calendar
+     */
+    public Calendar getCalendar()
+    {
+        return calendar;
+    }
+
+    /**
+     * Sets the reference to the calendar
+     *
+     * @param calendar  reference to the calendar
+     */
+    public void setCalendar(Calendar calendar)
+    {
+        this.calendar = calendar;
+    }
 }

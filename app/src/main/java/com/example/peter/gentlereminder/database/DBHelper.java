@@ -73,6 +73,7 @@ public class DBHelper extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery("select * from " + REMINDERS_TABLE, null);
         cursor.moveToLast();
         reminder.setId(cursor.getInt(0));
+        cursor.close();
         //TODO: Remove boolean later, make method void
         return true;
     }

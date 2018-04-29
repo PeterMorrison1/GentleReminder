@@ -45,7 +45,11 @@ public class EditReminder extends Dialog
             public void onClick(View v)
             {
                 EditText title = findViewById(R.id.editTitle);
+                EditText note = findViewById(R.id.editNote);
+
                 reminderObject.setTitle(title.getText().toString());
+                reminderObject.setNote(note.getText().toString());
+
                 reminderObject.setDeleted(false);
                 dismiss();
             }
