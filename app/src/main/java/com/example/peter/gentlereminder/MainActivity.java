@@ -1,22 +1,13 @@
 package com.example.peter.gentlereminder;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.peter.gentlereminder.adapter.MyAdapter;
@@ -24,6 +15,7 @@ import com.example.peter.gentlereminder.database.DBHelper;
 import com.example.peter.gentlereminder.dialogs.EditReminder;
 import com.example.peter.gentlereminder.notifications.AlarmHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         reminderList = db.getAllReminders();
 
@@ -77,12 +68,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
         addReminder();
     }
 
     /**
-     * Adds a Prompts user to enter information for new reminder object
+     * Adds a Prompt for the user to enter information for new reminder object
      * then adds the reference to the object to the database and recyclerview
      */
     private void addReminder()
@@ -97,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 EditReminder editReminder = new EditReminder(MainActivity.this, newReminder);
 
                 editReminder.show();
+                editReminder.setCancelable(false);
                 editReminder.setCanceledOnTouchOutside(false);
 
                 editReminder.setOnDismissListener(new DialogInterface.OnDismissListener()
@@ -125,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Adds a notification based on the content of the reminder
+     *
+     * @param reminder  reference to the reminder
+     */
     private void addNotification(Reminder reminder)
     {
         AlarmHelper alarmHelper = new AlarmHelper(this);
@@ -135,10 +131,21 @@ public class MainActivity extends AppCompatActivity {
     private void testData()
     {
         Reminder reminder;
+        List<Integer> mList = new ArrayList<>();
+        mList.add(1);
+        mList.add(2);
+        mList.add(3);
+        mList.add(4);
+        mList.add(5);
+        mList.add(6);
+        mList.add(7);
         for(int i = 0; i < 50; i++) {
             reminder = new Reminder();
             reminder.setTitle("Title: " + i);
             reminder.setNote("Note: " + i);
+            reminder.setHour(5);
+            reminder.setMinute(0);
+            reminder.setDaysOfWeek(mList);
 //            reminder.setId(i);
             reminderList.add(reminder);
             db.addReminder(reminder);

@@ -19,12 +19,21 @@ public class DBHelper extends SQLiteOpenHelper
     private static final String REMINDERS_TABLE = "reminders";
 
     // database version number
-    private static final int REMINDERS_VERSION = 1;
+    private static final int REMINDERS_VERSION = 4;
 
     // column names
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_NOTE = "note";
+    private static final String COLUMN_SUN = "sun";
+    private static final String COLUMN_MON = "mon";
+    private static final String COLUMN_TUE = "tue";
+    private static final String COLUMN_WED = "wed";
+    private static final String COLUMN_THU = "thu";
+    private static final String COLUMN_FRI = "fri";
+    private static final String COLUMN_SAT = "sat";
+    private static final String COLUMN_HOUR = "hour";
+    private static final String COLUMN_MINUTE = "minute";
 
     /**
      * Constructor for the database
@@ -42,7 +51,16 @@ public class DBHelper extends SQLiteOpenHelper
         String CREATE_TABLE = "CREATE TABLE " + REMINDERS_TABLE + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TITLE + " TEXT,"
-                + COLUMN_NOTE + " TEXT"
+                + COLUMN_NOTE + " TEXT,"
+                + COLUMN_MON + " INTEGER,"
+                + COLUMN_SUN + " INTEGER,"
+                + COLUMN_TUE + " INTEGER,"
+                + COLUMN_WED + " INTEGER,"
+                + COLUMN_THU + " INTEGER,"
+                + COLUMN_FRI + " INTEGER,"
+                + COLUMN_SAT + " INTEGER,"
+                + COLUMN_HOUR + " INTEGER,"
+                + COLUMN_MINUTE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_TABLE);
     }
@@ -65,9 +83,19 @@ public class DBHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-//        contentValues.put(COLUMN_ID, reminder.getId());
         contentValues.put(COLUMN_TITLE, reminder.getTitle());
         contentValues.put(COLUMN_NOTE, reminder.getNote());
+
+        contentValues.put(COLUMN_SUN, reminder.getDaysOfWeek().get(0));
+        contentValues.put(COLUMN_MON, reminder.getDaysOfWeek().get(1));
+        contentValues.put(COLUMN_TUE, reminder.getDaysOfWeek().get(2));
+        contentValues.put(COLUMN_WED, reminder.getDaysOfWeek().get(3));
+        contentValues.put(COLUMN_THU, reminder.getDaysOfWeek().get(4));
+        contentValues.put(COLUMN_FRI, reminder.getDaysOfWeek().get(5));
+        contentValues.put(COLUMN_SAT, reminder.getDaysOfWeek().get(6));
+
+        contentValues.put(COLUMN_HOUR, reminder.getHour());
+        contentValues.put(COLUMN_MINUTE, reminder.getMinute());
 
         db.insert(REMINDERS_TABLE, null, contentValues);
         Cursor cursor = db.rawQuery("select * from " + REMINDERS_TABLE, null);
@@ -96,7 +124,19 @@ public class DBHelper extends SQLiteOpenHelper
         reminder.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE)));
         reminder.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE)));
 
-        cursor.close();
+        List<Integer> mList = new ArrayList<>();
+        mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SUN)));
+        mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_MON)));
+        mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TUE)));
+        mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_WED)));
+        mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_THU)));
+        mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_FRI)));
+        mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SAT)));
+        reminder.setDaysOfWeek(mList);
+
+        reminder.setHour(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HOUR)));
+        reminder.setMinute(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_MINUTE)));
+
         return reminder;
     }
 
@@ -119,6 +159,19 @@ public class DBHelper extends SQLiteOpenHelper
             reminder.setId(Integer.parseInt(cursor.getString(0)));
             reminder.setTitle(cursor.getString(1));
             reminder.setNote(cursor.getString(2));
+
+            List<Integer> mList = new ArrayList<>();
+            mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SUN)));
+            mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_MON)));
+            mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TUE)));
+            mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_WED)));
+            mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_THU)));
+            mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_FRI)));
+            mList.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SAT)));
+            reminder.setDaysOfWeek(mList);
+
+            reminder.setHour(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HOUR)));
+            reminder.setMinute(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_MINUTE)));
 
             mReminderList.add(reminder);
             cursor.moveToNext();
@@ -150,8 +203,22 @@ public class DBHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
+        List<Integer> mList = reminder.getDaysOfWeek();
+
+
         contentValues.put(COLUMN_TITLE, reminder.getTitle());
         contentValues.put(COLUMN_NOTE, reminder.getNote());
+
+        contentValues.put(COLUMN_SUN, mList.get(0));
+        contentValues.put(COLUMN_MON, mList.get(1));
+        contentValues.put(COLUMN_TUE, mList.get(2));
+        contentValues.put(COLUMN_WED, mList.get(3));
+        contentValues.put(COLUMN_THU, mList.get(4));
+        contentValues.put(COLUMN_FRI, mList.get(5));
+        contentValues.put(COLUMN_SAT, mList.get(6));
+
+        contentValues.put(COLUMN_HOUR, reminder.getHour());
+        contentValues.put(COLUMN_MINUTE, reminder.getMinute());
 
         db.update(REMINDERS_TABLE, contentValues, COLUMN_ID +"=?",
                 new String[]{Integer.toString(reminder.getId())});

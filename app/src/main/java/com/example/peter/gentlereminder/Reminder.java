@@ -1,6 +1,7 @@
 package com.example.peter.gentlereminder;
 
-import java.util.Calendar;
+
+import java.util.List;
 
 public class Reminder {
     // instance vars
@@ -8,7 +9,9 @@ public class Reminder {
     private String note;
     private int id;
     private boolean deleted;
-    private Calendar calendar;
+    private int hour;
+    private int minute;
+    private List<Integer> daysOfWeek;
 
     /**
      * Empty constructor for the reminder class
@@ -95,22 +98,64 @@ public class Reminder {
     }
 
     /**
-     * Gets the reference to the calendar
      *
-     * @return  reference to the calendar
+     * @return  hour scheduled for the reminder in 24 hour format
      */
-    public Calendar getCalendar()
+    public int getHour()
     {
-        return calendar;
+        return hour;
     }
 
     /**
-     * Sets the reference to the calendar
      *
-     * @param calendar  reference to the calendar
+     * @param hour schedule hour for the reminder in 24 hour format
      */
-    public void setCalendar(Calendar calendar)
+    public void setHour(int hour)
     {
-        this.calendar = calendar;
+        this.hour = hour;
+    }
+
+    /**
+     *
+     * @return  minute scheduled for the reminder (0-59)
+     */
+    public int getMinute()
+    {
+        return minute;
+    }
+
+    /**
+     *
+     * @param minute    schedule minute for the reminder (0-59)
+     */
+    public void setMinute(int minute)
+    {
+        this.minute = minute;
+    }
+
+    /**
+     * List of days to schedule a reminder for every week. By default all values are 0
+     * if a day is scheduled it will have the corresponding number to the day in the week
+     * so sunday is 1, monday 2, saturday 7. (calendar requires sunday as 1)
+     * 0 index is sunday 6 index is saturday.
+     *
+     * @return  list of the days there are reminders set for
+     */
+    public List<Integer> getDaysOfWeek()
+    {
+        return daysOfWeek;
+    }
+
+    /**
+     * List of days to schedule a reminder for every week. By default all values are 0
+     * if a day is scheduled it will have the corresponding number to the day in the week
+     * so sunday is 1, monday 2, saturday 7. (calendar requires sunday as 1)
+     * 0 index is sunday 6 index is saturday.
+     *
+     * @param daysOfWeek    list of days there are to be reminders set
+     */
+    public void setDaysOfWeek(List<Integer> daysOfWeek)
+    {
+        this.daysOfWeek = daysOfWeek;
     }
 }

@@ -8,7 +8,7 @@
     android:padding="2dp">
 
     <Button
-        android:id="@+id/confirmButton2"
+        android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -19,23 +19,21 @@
         app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <Button
-        android:id="@+id/cancelButton2"
+        android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/cancel"
         app:layout_constraintBottom_toTopOf="@+id/guideline26"
-        app:layout_constraintEnd_toStartOf="@+id/confirmButton2"
+        app:layout_constraintEnd_toStartOf="@+id/confirmButton"
         app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <TimePicker
-        android:id="@+id/timePicker3"
+        android:id="@+id/timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:timePickerMode="spinner"
@@ -47,51 +45,21 @@
     </TimePicker>
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBoxMon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineSunEnd"
-        app:layout_constraintStart_toStartOf="@+id/guidelineSun"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineTue"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMon"
         app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
     <CheckBox
-        android:id="@+id/checkBox8"
+        android:id="@+id/checkBoxTue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineSun"
-        app:layout_constraintStart_toStartOf="@+id/guidelineSat"
-        app:layout_constraintTop_toTopOf="@+id/guideline16" />
-
-    <CheckBox
-        android:id="@+id/checkBox7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineSat"
-        app:layout_constraintStart_toStartOf="@+id/guidelineFri"
-        app:layout_constraintTop_toTopOf="@+id/guideline16" />
-
-    <CheckBox
-        android:id="@+id/checkBox6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineWed"
@@ -99,12 +67,10 @@
         app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
     <CheckBox
-        android:id="@+id/checkBox5"
+        android:id="@+id/checkBoxWed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineThu"
@@ -112,12 +78,10 @@
         app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
     <CheckBox
-        android:id="@+id/checkBox4"
+        android:id="@+id/checkBoxThu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineFri"
@@ -125,16 +89,36 @@
         app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/checkBoxFri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineTue"
-        app:layout_constraintStart_toStartOf="@+id/guidelineMon"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineSat"
+        app:layout_constraintStart_toStartOf="@+id/guidelineFri"
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineSun"
+        app:layout_constraintStart_toStartOf="@+id/guidelineSat"
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineSunEnd"
+        app:layout_constraintStart_toStartOf="@+id/guidelineSun"
         app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
     <TextView
@@ -274,7 +258,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <EditText
-        android:id="@+id/editNote2"
+        android:id="@+id/editNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -285,7 +269,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
     <EditText
-        android:id="@+id/editTitle2"
+        android:id="@+id/editTitle"
         android:layout_width="213dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
