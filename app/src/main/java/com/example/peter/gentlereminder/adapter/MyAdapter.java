@@ -15,6 +15,7 @@ import com.example.peter.gentlereminder.database.DBHelper;
 import com.example.peter.gentlereminder.dialogs.EditReminder;
 import com.example.peter.gentlereminder.R;
 import com.example.peter.gentlereminder.Reminder;
+import com.example.peter.gentlereminder.notifications.AlarmHelper;
 
 import java.util.List;
 
@@ -139,11 +140,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
                     return;
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
+                AlarmHelper alarmHelper = new AlarmHelper(v.getContext());
                 DBHelper db = new DBHelper(v.getContext());
                 fadeButtonClick(v);
 
                 int pos = holder.getAdapterPosition();
                 Reminder reminderToDelete = reminderList.get(pos);
+
+                alarmHelper.setmReminder(reminderList.get(pos));
+                alarmHelper.deleteNotification(alarmHelper.getNotification());
 
                 Toast.makeText(v.getContext(), "Delete item at pos: " +
                         pos + " with id: " + reminderList.get(pos).getId(), Toast.LENGTH_SHORT).show();
@@ -181,8 +186,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
             public void onDismiss(DialogInterface dialog)
             {
                 DBHelper db = new DBHelper(v.getContext());
-                Toast.makeText(v.getContext(), "Edit item at pos: " +
-                        pos, Toast.LENGTH_SHORT).show();
                 notifyItemChanged(pos);
                 db.updateReminder(reminderList.get(pos));
             }

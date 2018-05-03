@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                             db.addReminder(newReminder);
                             mRecyclerView.getAdapter().
                                     notifyItemInserted(reminderList.indexOf(newReminder));
-                            addNotification(newReminder);
+//                            addNotification(newReminder);
                         }
                         else
                         {

@@ -45,7 +45,7 @@ public class AlarmHelper
     /**
      * Schedules a notification with the alarm manager and calendar with the info input in dialog
      *
-     * @param notification  notification object created in getNotification
+     * @param notification notification object created in getNotification
      */
     public void scheduleNotification(Notification notification)
     {
@@ -56,38 +56,33 @@ public class AlarmHelper
 
         List<Integer> daysList = mReminder.getDaysOfWeek();
 
-        for(int i = 0; i < daysList.size(); i++)
+        for (int i = 0; i < daysList.size(); i++)
         {
             int uniqueReminderId = mReminder.getId() * UNIQUE_MULTIPLIER;
 
-            if(daysList.get(i) == 0)
+            if (daysList.get(i) == 0)
             {
                 continue;
             }
 
             int dayId;
-            switch(i)
+            switch (i)
             {
                 // sunday
                 case 0:
                     dayId = daysList.get(i);
-                    Toast.makeText(context, "DAY: SUN", Toast.LENGTH_SHORT).show();
                     break;
 
                 case 1:
                     dayId = daysList.get(i);
-                    Toast.makeText(context, "DAY: MON", Toast.LENGTH_SHORT).show();
                     break;
 
                 case 2:
                     dayId = daysList.get(i);
-                    Toast.makeText(context, "DAY: TUE", Toast.LENGTH_SHORT).show();
-
                     break;
 
                 case 3:
                     dayId = daysList.get(i);
-                    Toast.makeText(context, "DAY: WED: " + dayId, Toast.LENGTH_SHORT).show();
                     break;
 
                 case 4:
@@ -113,7 +108,7 @@ public class AlarmHelper
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast
                     (context, dayId + uniqueReminderId, notificationIntent,
-                            PendingIntent.FLAG_CANCEL_CURRENT);
+                            PendingIntent.FLAG_UPDATE_CURRENT);
 
             int hour = mReminder.getHour();
             int minute = mReminder.getMinute();
@@ -126,34 +121,30 @@ public class AlarmHelper
             calendar.set(Calendar.SECOND, 1);
 
             // get am or pm since hour is stored as 24 hour format
-            if(hour < 12)
+            if (hour < 12)
             {
                 calendar.set(Calendar.AM_PM, Calendar.AM);
-            }
-            else
+            } else
             {
                 calendar.set(Calendar.AM_PM, Calendar.PM);
             }
 
-            if(calendar.getTimeInMillis() < System.currentTimeMillis())
+            if (calendar.getTimeInMillis() < System.currentTimeMillis())
             {
-                calendar.add(Calendar.DATE,7);
+                calendar.add(Calendar.DATE, 7);
             }
 
-            Toast.makeText(context, "TIME SET: " + calendar.getTimeInMillis(),
-                    Toast.LENGTH_LONG).show();
-
             // set time for the alarm manager to send the notification
-            AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    24*7*60*60*1000, pendingIntent);
+                    24 * 7 * 60 * 60 * 1000, pendingIntent);
         }
     }
 
     /**
      * Creates the format of the notification
      *
-     * @return  reference to the notification created
+     * @return reference to the notification created
      */
     public Notification getNotification()
     {
@@ -165,5 +156,71 @@ public class AlarmHelper
         builder.setSmallIcon(R.mipmap.ic_launcher_round);
 
         return builder.build();
+    }
+
+    public void deleteNotification(Notification notification)
+    {
+        Intent notificationIntent = new Intent(context, NotificationHelper.class);
+
+        notificationIntent.putExtra(NotificationHelper.NOTIFICATION_ID, mReminder.getId());
+        notificationIntent.putExtra(NotificationHelper.NOTIFICATION, notification);
+
+        List<Integer> daysList = mReminder.getDaysOfWeek();
+
+        for (int i = 0; i < daysList.size(); i++)
+        {
+            int uniqueReminderId = mReminder.getId() * UNIQUE_MULTIPLIER;
+
+            if (daysList.get(i) == 0)
+            {
+                continue;
+            }
+
+            int dayId;
+            switch (i)
+            {
+                // sunday
+                case 0:
+                    dayId = daysList.get(i);
+                    Toast.makeText(context, "DAY: SUN", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 1:
+                    dayId = daysList.get(i);
+                    Toast.makeText(context, "DAY: MON", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 2:
+                    dayId = daysList.get(i);
+                    Toast.makeText(context, "DAY: TUE", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 3:
+                    dayId = daysList.get(i);
+                    break;
+
+                case 4:
+                    dayId = daysList.get(i);
+                    break;
+
+                case 5:
+                    dayId = daysList.get(i);
+                    break;
+                // saturday
+                case 6:
+                    dayId = daysList.get(i);
+                    break;
+
+                default:
+                    continue;
+            }
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast
+                    (context, dayId + uniqueReminderId, notificationIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.cancel(pendingIntent);
+        }
     }
 }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.peter.gentlereminder.R;
 import com.example.peter.gentlereminder.Reminder;
+import com.example.peter.gentlereminder.notifications.AlarmHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -110,6 +111,11 @@ public class EditReminder extends Dialog
                 reminderObject.setNote(note.getText().toString());
                 reminderObject.setDaysOfWeek(daysOfWeek);
                 reminderObject.setDeleted(false);
+
+                AlarmHelper alarmHelper = new AlarmHelper(getContext());
+                alarmHelper.setmReminder(reminderObject);
+                alarmHelper.scheduleNotification(alarmHelper.getNotification());
+
                 dismiss();
             }
         });
