@@ -102,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
                             mRecyclerView.getAdapter().
                                     notifyItemInserted(reminderList.indexOf(newReminder));
                             addNotification(newReminder);
-                            Toast.makeText(v.getContext(), "Edit item at pos: ",
-                                    Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
