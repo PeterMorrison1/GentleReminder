@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -43,28 +44,15 @@ public class EditReminder extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.reminder_prompt);
-
+        EditText title = findViewById(R.id.editTitle);
+        EditText note = findViewById(R.id.editNote);
 
         final TimePicker picker = findViewById(R.id.timePicker);
         Button confirm = findViewById(R.id.confirmButton);
         Button cancel = findViewById(R.id.cancelButton);
-        CheckBox sunBox = findViewById(R.id.checkBoxSun);
-        CheckBox monBox = findViewById(R.id.checkBoxMon);
-        CheckBox tueBox = findViewById(R.id.checkBoxTue);
-        CheckBox wedBox = findViewById(R.id.checkBoxWed);
-        CheckBox thuBox = findViewById(R.id.checkBoxThu);
-        CheckBox friBox = findViewById(R.id.checkBoxFri);
-        CheckBox satBox = findViewById(R.id.checkBoxSat);
+        final List<CheckBox> checkBoxList = bindCheckBoxes();
 
-        // for looping through the checkboxes
-        final List<CheckBox> checkBoxList = new ArrayList<>();
-        checkBoxList.add(sunBox);
-        checkBoxList.add(monBox);
-        checkBoxList.add(tueBox);
-        checkBoxList.add(wedBox);
-        checkBoxList.add(thuBox);
-        checkBoxList.add(friBox);
-        checkBoxList.add(satBox);
+        savedState(title, note, picker, checkBoxList);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -115,6 +103,68 @@ public class EditReminder extends Dialog {
                 dismiss();
             }
         });
+    }
 
+    /**
+     * Binds the checkbox views in the dialog and adds the binded views to a list.
+     *
+     * @return list of bound checkbox views
+     */
+    private List<CheckBox> bindCheckBoxes(){
+        CheckBox sunBox = findViewById(R.id.checkBoxSun);
+        CheckBox monBox = findViewById(R.id.checkBoxMon);
+        CheckBox tueBox = findViewById(R.id.checkBoxTue);
+        CheckBox wedBox = findViewById(R.id.checkBoxWed);
+        CheckBox thuBox = findViewById(R.id.checkBoxThu);
+        CheckBox friBox = findViewById(R.id.checkBoxFri);
+        CheckBox satBox = findViewById(R.id.checkBoxSat);
+
+        // for looping through the checkboxes
+
+        final List<CheckBox> checkBoxList = new ArrayList<>();
+        checkBoxList.add(sunBox);
+        checkBoxList.add(monBox);
+        checkBoxList.add(tueBox);
+        checkBoxList.add(wedBox);
+        checkBoxList.add(thuBox);
+        checkBoxList.add(friBox);
+        checkBoxList.add(satBox);
+
+        return checkBoxList;
+    }
+
+    /**
+     * Fills the parameters or checkboxes of the dialog with previously entered information for
+     * the reminder, if it exists.
+     *
+     * @param title         dialog's title edittext view
+     * @param note          dialog's note edittext view
+     * @param picker        dialog's spinner time picker
+     * @param checkBoxList  list of all checkbox views in the dialog
+     */
+    private void savedState(EditText title, EditText note, TimePicker picker,
+                           List<CheckBox> checkBoxList){
+        List<Integer> savedDaysOfWeek;
+        if (reminderObject.getDaysOfWeek() != null) {
+            savedDaysOfWeek = reminderObject.getDaysOfWeek();
+            if(reminderObject.getId() >= 0)
+            {
+                title.setText(reminderObject.getTitle());
+                note.setText(reminderObject.getNote());
+            }
+
+            if (reminderObject.getDaysOfWeek().get(1) >= 0) {
+                for(int i = 0; i < checkBoxList.size(); i++) {
+                    if (savedDaysOfWeek.get(i) > 0) {
+                        checkBoxList.get(i).setChecked(true);
+                    }
+                }
+            }
+
+            if (Build.VERSION.SDK_INT >= 23) {
+                picker.setHour(reminderObject.getHour());
+                picker.setMinute(reminderObject.getMinute());
+            }
+        }
     }
 }
