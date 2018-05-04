@@ -154,6 +154,7 @@ public class AlarmHelper
         builder.setContentTitle(mReminder.getTitle());
         builder.setContentText(mReminder.getNote());
         builder.setSmallIcon(R.mipmap.ic_launcher_round);
+        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
         return builder.build();
     }

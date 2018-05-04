@@ -33,7 +33,6 @@ public class NotificationHelper extends BroadcastReceiver
                     NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
-
         notificationManager.notify(id, notification);
     }
 }
