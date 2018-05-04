@@ -16,19 +16,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class AlarmHelper
-{
+public class AlarmHelper {
     private Reminder mReminder;
     private Context context;
     final int UNIQUE_MULTIPLIER = 10;
 
-    public AlarmHelper(Context context)
-    {
+    public AlarmHelper(Context context) {
         this.context = context;
     }
 
-    public Reminder getmReminder()
-    {
+    public Reminder getmReminder() {
         return mReminder;
     }
 
@@ -37,8 +34,7 @@ public class AlarmHelper
      *
      * @param mReminder reference to the reminder being changed
      */
-    public void setmReminder(Reminder mReminder)
-    {
+    public void setmReminder(Reminder mReminder) {
         this.mReminder = mReminder;
     }
 
@@ -47,8 +43,7 @@ public class AlarmHelper
      *
      * @param notification notification object created in getNotification
      */
-    public void scheduleNotification(Notification notification)
-    {
+    public void scheduleNotification(Notification notification) {
         Intent notificationIntent = new Intent(context, NotificationHelper.class);
 
         notificationIntent.putExtra(NotificationHelper.NOTIFICATION_ID, mReminder.getId());
@@ -56,18 +51,15 @@ public class AlarmHelper
 
         List<Integer> daysList = mReminder.getDaysOfWeek();
 
-        for (int i = 0; i < daysList.size(); i++)
-        {
+        for (int i = 0; i < daysList.size(); i++) {
             int uniqueReminderId = mReminder.getId() * UNIQUE_MULTIPLIER;
 
-            if (daysList.get(i) == 0)
-            {
+            if (daysList.get(i) == 0) {
                 continue;
             }
 
             int dayId;
-            switch (i)
-            {
+            switch (i) {
                 // sunday
                 case 0:
                     dayId = daysList.get(i);
@@ -121,16 +113,13 @@ public class AlarmHelper
             calendar.set(Calendar.SECOND, 1);
 
             // get am or pm since hour is stored as 24 hour format
-            if (hour < 12)
-            {
+            if (hour < 12) {
                 calendar.set(Calendar.AM_PM, Calendar.AM);
-            } else
-            {
+            } else {
                 calendar.set(Calendar.AM_PM, Calendar.PM);
             }
 
-            if (calendar.getTimeInMillis() < System.currentTimeMillis())
-            {
+            if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
                 calendar.add(Calendar.DATE, 7);
             }
 
@@ -146,8 +135,7 @@ public class AlarmHelper
      *
      * @return reference to the notification created
      */
-    public Notification getNotification()
-    {
+    public Notification getNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder
                 (context.getApplicationContext(), "notify_001");
 
@@ -159,8 +147,7 @@ public class AlarmHelper
         return builder.build();
     }
 
-    public void deleteNotification(Notification notification)
-    {
+    public void deleteNotification(Notification notification) {
         Intent notificationIntent = new Intent(context, NotificationHelper.class);
 
         notificationIntent.putExtra(NotificationHelper.NOTIFICATION_ID, mReminder.getId());
@@ -168,18 +155,15 @@ public class AlarmHelper
 
         List<Integer> daysList = mReminder.getDaysOfWeek();
 
-        for (int i = 0; i < daysList.size(); i++)
-        {
+        for (int i = 0; i < daysList.size(); i++) {
             int uniqueReminderId = mReminder.getId() * UNIQUE_MULTIPLIER;
 
-            if (daysList.get(i) == 0)
-            {
+            if (daysList.get(i) == 0) {
                 continue;
             }
 
             int dayId;
-            switch (i)
-            {
+            switch (i) {
                 // sunday
                 case 0:
                     dayId = daysList.get(i);

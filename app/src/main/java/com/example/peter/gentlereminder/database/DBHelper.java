@@ -12,8 +12,7 @@ import com.example.peter.gentlereminder.Reminder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBHelper extends SQLiteOpenHelper
-{
+public class DBHelper extends SQLiteOpenHelper {
     // database and table names
     private static final String REMINDERS_DATABASE = "Reminders.db";
     private static final String REMINDERS_TABLE = "reminders";
@@ -38,16 +37,14 @@ public class DBHelper extends SQLiteOpenHelper
     /**
      * Constructor for the database
      *
-     * @param context   activity context
+     * @param context activity context
      */
-    public DBHelper(Context context)
-    {
+    public DBHelper(Context context) {
         super(context, REMINDERS_DATABASE, null, REMINDERS_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db)
-    {
+    public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE " + REMINDERS_TABLE + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TITLE + " TEXT,"
@@ -66,8 +63,7 @@ public class DBHelper extends SQLiteOpenHelper
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS reminders");
         onCreate(db);
     }
@@ -75,11 +71,10 @@ public class DBHelper extends SQLiteOpenHelper
     /**
      * Adds a reminder to the screen and database
      *
-     * @param reminder  a reference to a reminder object
-     * @return  returns true when done for error checking
+     * @param reminder a reference to a reminder object
+     * @return returns true when done for error checking
      */
-    public boolean addReminder(Reminder reminder)
-    {
+    public boolean addReminder(Reminder reminder) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -109,13 +104,12 @@ public class DBHelper extends SQLiteOpenHelper
     /**
      * Gets the reminder instance based on the id
      *
-     * @param id    id of the reminder
-     * @return  returns the reference to the selected reminder
+     * @param id id of the reminder
+     * @return returns the reference to the selected reminder
      */
-    public Reminder getReminder(int id)
-    {
+    public Reminder getReminder(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery( "SELECT * FROM " + REMINDERS_TABLE + " WHERE "
+        Cursor cursor = db.rawQuery("SELECT * FROM " + REMINDERS_TABLE + " WHERE "
                 + COLUMN_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
 
         cursor.moveToFirst();
@@ -143,18 +137,16 @@ public class DBHelper extends SQLiteOpenHelper
     /**
      * Gets a list of all reminder objects in the database
      *
-     * @return  the list containing all reminder references
+     * @return the list containing all reminder references
      */
-    public List<Reminder> getAllReminders()
-    {
+    public List<Reminder> getAllReminders() {
         List<Reminder> mReminderList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from " + REMINDERS_TABLE, null);
         cursor.moveToFirst();
 
-        while(!cursor.isAfterLast())
-        {
+        while (!cursor.isAfterLast()) {
             Reminder reminder = new Reminder();
             reminder.setId(Integer.parseInt(cursor.getString(0)));
             reminder.setTitle(cursor.getString(1));
@@ -183,10 +175,9 @@ public class DBHelper extends SQLiteOpenHelper
     /**
      * Gets the number of rows (entries) in the database
      *
-     * @return  returns the number of rows in the database
+     * @return returns the number of rows in the database
      */
-    public int numOfRows()
-    {
+    public int numOfRows() {
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, REMINDERS_TABLE);
         return numRows;
@@ -195,11 +186,10 @@ public class DBHelper extends SQLiteOpenHelper
     /**
      * Update the information of an entry in the database
      *
-     * @param reminder  reference to the object that contains updated information
-     * @return  returns true when done for error checking
+     * @param reminder reference to the object that contains updated information
+     * @return returns true when done for error checking
      */
-    public boolean updateReminder(Reminder reminder)
-    {
+    public boolean updateReminder(Reminder reminder) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -220,7 +210,7 @@ public class DBHelper extends SQLiteOpenHelper
         contentValues.put(COLUMN_HOUR, reminder.getHour());
         contentValues.put(COLUMN_MINUTE, reminder.getMinute());
 
-        db.update(REMINDERS_TABLE, contentValues, COLUMN_ID +"=?",
+        db.update(REMINDERS_TABLE, contentValues, COLUMN_ID + "=?",
                 new String[]{Integer.toString(reminder.getId())});
         //TODO: Remove boolean later, make method void
         return true;
@@ -229,10 +219,9 @@ public class DBHelper extends SQLiteOpenHelper
     /**
      * Removes the entry from the database
      *
-     * @param reminder  the reference to the reminder object being deleted
+     * @param reminder the reference to the reminder object being deleted
      */
-    public void deleteReminder(Reminder reminder)
-    {
+    public void deleteReminder(Reminder reminder) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(REMINDERS_TABLE, COLUMN_ID + "=?",
                 new String[]{String.valueOf(reminder.getId())});

@@ -20,18 +20,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class EditReminder extends Dialog
-{
+public class EditReminder extends Dialog {
     private Reminder reminderObject;
 
     /**
      * Constructor for the edit reminder dialog
      *
-     * @param context           the context of the activity/app
-     * @param reminderObject    reference to the reminder being edited
+     * @param context        the context of the activity/app
+     * @param reminderObject reference to the reminder being edited
      */
-    public EditReminder(Context context, Reminder reminderObject)
-    {
+    public EditReminder(Context context, Reminder reminderObject) {
         super(context);
         this.reminderObject = reminderObject;
     }
@@ -39,14 +37,12 @@ public class EditReminder extends Dialog
     /**
      * Sets buttons and onClickListeners when dialog is created
      *
-     * @param savedInstanceState    state of the app
+     * @param savedInstanceState state of the app
      */
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.reminder_prompt);
-
 
 
         final TimePicker picker = findViewById(R.id.timePicker);
@@ -70,16 +66,12 @@ public class EditReminder extends Dialog
         checkBoxList.add(friBox);
         checkBoxList.add(satBox);
 
-        confirm.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v)
-            {
-                if (Build.VERSION.SDK_INT >= 23)
-                {
+        confirm.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= 23) {
                     reminderObject.setHour(picker.getHour());
                     reminderObject.setMinute(picker.getMinute());
-                }
-                else
-                {
+                } else {
                     reminderObject.setHour(picker.getCurrentHour());
                     reminderObject.setMinute(picker.getCurrentMinute());
                 }
@@ -90,15 +82,11 @@ public class EditReminder extends Dialog
                 daysOfWeek.clear();
 
                 int i = 0;
-                for(CheckBox checkBox : checkBoxList)
-                {
-                    if(checkBox.isChecked())
-                    {
+                for (CheckBox checkBox : checkBoxList) {
+                    if (checkBox.isChecked()) {
                         // Calendar.DAY_OF_WEEK counts sunday as 1, saturday as 7
                         daysOfWeek.add(i + 1);
-                    }
-                    else
-                    {
+                    } else {
                         daysOfWeek.add(0);
                     }
                     i++;
@@ -120,11 +108,9 @@ public class EditReminder extends Dialog
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener()
-        {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 reminderObject.setDeleted(true);
                 dismiss();
             }

@@ -19,18 +19,16 @@ import com.example.peter.gentlereminder.notifications.AlarmHelper;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
-{
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<Reminder> reminderList;
     private long mLastClickTime = 0;
 
     /**
      * Constructs the adapter
      *
-     * @param reminderList  the arraylist of reminder objects
+     * @param reminderList the arraylist of reminder objects
      */
-    public MyAdapter(List<Reminder> reminderList)
-    {
+    public MyAdapter(List<Reminder> reminderList) {
         this.reminderList = reminderList;
     }
 
@@ -61,10 +59,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         /**
          * Constructs the view holder
          *
-         * @param view  the activity view
+         * @param view the activity view
          */
-        private ViewHolder(View view)
-        {
+        private ViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.title);
             note = view.findViewById(R.id.note);
@@ -79,19 +76,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
      * @param view1 view of the edit button for the RV item that was clicked
      * @param view2 view of the deleted button for the RV item that was clicked
      */
-    private void updateButtonVisibility(View view1, View view2)
-    {
+    private void updateButtonVisibility(View view1, View view2) {
 
-        if(view1.getVisibility() == View.VISIBLE && view2.getVisibility() == View.VISIBLE)
-        {
+        if (view1.getVisibility() == View.VISIBLE && view2.getVisibility() == View.VISIBLE) {
             view1.setAnimation(AnimationUtils.loadAnimation(view1.getContext(), R.anim.slide_right));
             view1.setVisibility(View.GONE);
 
             view2.setAnimation(AnimationUtils.loadAnimation(view2.getContext(), R.anim.slide_right));
             view2.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             view1.setAnimation(AnimationUtils.loadAnimation(view1.getContext(), R.anim.slide_left));
             view1.setVisibility(View.VISIBLE);
 
@@ -103,16 +96,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
     /**
      * Fades the button for 0.2 seconds on click
      *
-     * @param view  view of the button that was clicked
+     * @param view view of the button that was clicked
      */
-    private void fadeButtonClick(View view)
-    {
+    private void fadeButtonClick(View view) {
         view.startAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_on_click));
     }
 
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.reminder_list_row, parent, false);
         view.findViewById(R.id.button1).setVisibility(View.GONE);
@@ -121,8 +112,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position)
-    {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final View.OnClickListener editListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,8 +125,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
             @Override
             public void onClick(View v) {
 
-                if(SystemClock.elapsedRealtime() - mLastClickTime < 1000)
-                {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return;
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
@@ -171,20 +160,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
     /**
      * Calls the edit layout to appear when the edit button is clicked for the specific entry
      *
-     * @param holder    the viewholder for the recyclerview
-     * @param v         the view of the item being edited
+     * @param holder the viewholder for the recyclerview
+     * @param v      the view of the item being edited
      */
-    private void editPrompt(ViewHolder holder, final View v)
-    {
+    private void editPrompt(ViewHolder holder, final View v) {
         final int pos = holder.getAdapterPosition();
         EditReminder edit = new EditReminder(v.getContext(), reminderList.get(pos));
         edit.show();
         edit.setCanceledOnTouchOutside(false);
-        edit.setOnDismissListener(new DialogInterface.OnDismissListener()
-        {
+        edit.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onDismiss(DialogInterface dialog)
-            {
+            public void onDismiss(DialogInterface dialog) {
                 DBHelper db = new DBHelper(v.getContext());
                 notifyItemChanged(pos);
                 db.updateReminder(reminderList.get(pos));
@@ -193,14 +179,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return reminderList.size();
     }
 
     @Override
-    public int getItemViewType(int position)
-    {
+    public int getItemViewType(int position) {
         return position;
     }
 }

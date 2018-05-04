@@ -16,55 +16,50 @@ public class Reminder {
     /**
      * Empty constructor for the reminder class
      */
-    public Reminder()
-    {
+    public Reminder() {
         // empty constructor
     }
 
     /**
      * Get the deleted status
      *
-     * @return  if the reminder is deleted
+     * @return if the reminder is deleted
      */
-    public boolean isDeleted()
-    {
+    public boolean isDeleted() {
         return deleted;
     }
 
     /**
      * Set if the reminder is deleted
      *
-     * @param deleted   if the reminder is deleted
+     * @param deleted if the reminder is deleted
      */
-    public void setDeleted(boolean deleted)
-    {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 
     /**
      * Gets the id
      *
-     * @return  the id number for the reminder object
+     * @return the id number for the reminder object
      */
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
     /**
      * Sets the id
      *
-     * @param id    the id number for the reminder object
+     * @param id the id number for the reminder object
      */
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
     /**
      * Gets the title
      *
-     * @return  title of the reminder
+     * @return title of the reminder
      */
     public String getTitle() {
         return title;
@@ -82,7 +77,7 @@ public class Reminder {
     /**
      * Gets the note
      *
-     * @return  note of the reminder
+     * @return note of the reminder
      */
     public String getNote() {
         return note;
@@ -91,45 +86,37 @@ public class Reminder {
     /**
      * Sets the note
      *
-     * @param note  the note to set for the reminder
+     * @param note the note to set for the reminder
      */
     public void setNote(String note) {
         this.note = note;
     }
 
     /**
-     *
-     * @return  hour scheduled for the reminder in 24 hour format
+     * @return hour scheduled for the reminder in 24 hour format
      */
-    public int getHour()
-    {
+    public int getHour() {
         return hour;
     }
 
     /**
-     *
      * @param hour schedule hour for the reminder in 24 hour format
      */
-    public void setHour(int hour)
-    {
+    public void setHour(int hour) {
         this.hour = hour;
     }
 
     /**
-     *
-     * @return  minute scheduled for the reminder (0-59)
+     * @return minute scheduled for the reminder (0-59)
      */
-    public int getMinute()
-    {
+    public int getMinute() {
         return minute;
     }
 
     /**
-     *
-     * @param minute    schedule minute for the reminder (0-59)
+     * @param minute schedule minute for the reminder (0-59)
      */
-    public void setMinute(int minute)
-    {
+    public void setMinute(int minute) {
         this.minute = minute;
     }
 
@@ -139,10 +126,9 @@ public class Reminder {
      * so sunday is 1, monday 2, saturday 7. (calendar requires sunday as 1)
      * 0 index is sunday 6 index is saturday.
      *
-     * @return  list of the days there are reminders set for
+     * @return list of the days there are reminders set for
      */
-    public List<Integer> getDaysOfWeek()
-    {
+    public List<Integer> getDaysOfWeek() {
         return daysOfWeek;
     }
 
@@ -152,10 +138,9 @@ public class Reminder {
      * so sunday is 1, monday 2, saturday 7. (calendar requires sunday as 1)
      * 0 index is sunday 6 index is saturday.
      *
-     * @param daysOfWeek    list of days there are to be reminders set
+     * @param daysOfWeek list of days there are to be reminders set
      */
-    public void setDaysOfWeek(List<Integer> daysOfWeek)
-    {
+    public void setDaysOfWeek(List<Integer> daysOfWeek) {
         this.daysOfWeek = daysOfWeek;
     }
 }
