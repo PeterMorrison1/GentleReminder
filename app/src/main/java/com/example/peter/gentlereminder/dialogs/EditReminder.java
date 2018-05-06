@@ -46,13 +46,14 @@ public class EditReminder extends Dialog {
         setContentView(R.layout.reminder_prompt);
         EditText title = findViewById(R.id.editTitle);
         EditText note = findViewById(R.id.editNote);
+        final CheckBox vibrateBox = findViewById(R.id.vibrate);
 
         final TimePicker picker = findViewById(R.id.timePicker);
         Button confirm = findViewById(R.id.confirmButton);
         Button cancel = findViewById(R.id.cancelButton);
         final List<CheckBox> checkBoxList = bindCheckBoxes();
 
-        savedState(title, note, picker, checkBoxList);
+        savedState(title, note, picker, checkBoxList, vibrateBox);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -87,6 +88,7 @@ public class EditReminder extends Dialog {
                 reminderObject.setNote(note.getText().toString());
                 reminderObject.setDaysOfWeek(daysOfWeek);
                 reminderObject.setDeleted(false);
+                reminderObject.setVibrate(vibrateBox.isChecked());
 
                 AlarmHelper alarmHelper = new AlarmHelper(getContext());
                 alarmHelper.setmReminder(reminderObject);
@@ -143,7 +145,7 @@ public class EditReminder extends Dialog {
      * @param checkBoxList  list of all checkbox views in the dialog
      */
     private void savedState(EditText title, EditText note, TimePicker picker,
-                           List<CheckBox> checkBoxList){
+                           List<CheckBox> checkBoxList, CheckBox vibrate){
         List<Integer> savedDaysOfWeek;
         if (reminderObject.getDaysOfWeek() != null) {
             savedDaysOfWeek = reminderObject.getDaysOfWeek();
@@ -151,6 +153,7 @@ public class EditReminder extends Dialog {
             {
                 title.setText(reminderObject.getTitle());
                 note.setText(reminderObject.getNote());
+                vibrate.setChecked(reminderObject.isVibrate());
             }
 
             if (reminderObject.getDaysOfWeek().get(1) >= 0) {

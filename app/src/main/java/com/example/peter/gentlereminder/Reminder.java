@@ -12,6 +12,7 @@ public class Reminder {
     private int hour;
     private int minute;
     private List<Integer> daysOfWeek;
+    private boolean vibrate;
 
     /**
      * Empty constructor for the reminder class
@@ -142,5 +143,13 @@ public class Reminder {
      */
     public void setDaysOfWeek(List<Integer> daysOfWeek) {
         this.daysOfWeek = daysOfWeek;
+    }
+
+    public boolean isVibrate() {
+        return vibrate;
+    }
+
+    public void setVibrate(boolean vibrate) {
+        this.vibrate = vibrate;
     }
 }

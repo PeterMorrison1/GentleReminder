@@ -19,7 +19,7 @@ import java.util.List;
 public class AlarmHelper {
     private Reminder mReminder;
     private Context context;
-    final int UNIQUE_MULTIPLIER = 10;
+    private final int UNIQUE_MULTIPLIER = 10;
 
     public AlarmHelper(Context context) {
         this.context = context;
@@ -143,7 +143,10 @@ public class AlarmHelper {
         builder.setContentText(mReminder.getNote());
         builder.setSmallIcon(R.mipmap.ic_launcher_round);
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-
+        builder.setShowWhen(false);
+        if(!mReminder.isVibrate()) {
+            builder.setVibrate(new long[]{0L});
+        }
         return builder.build();
     }
 
