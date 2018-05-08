@@ -3,6 +3,8 @@
     package="com.example.peter.gentlereminder">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     
     <application
         android:allowBackup="true"
@@ -19,7 +21,8 @@
             </intent-filter>
         </activity>
         <receiver android:name=".notifications.NotificationHelper"
-            android:process=":remote"/>
+            android:process=":remote"
+            android:enabled="true"/>
         <receiver android:name=".notifications.BootReceiver"
             android:enabled="true"
             android:exported="true">

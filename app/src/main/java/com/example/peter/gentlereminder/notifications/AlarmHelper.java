@@ -52,52 +52,19 @@ public class AlarmHelper {
         List<Integer> daysList = mReminder.getDaysOfWeek();
 
         for (int i = 0; i < daysList.size(); i++) {
-            int uniqueReminderId = mReminder.getId() * UNIQUE_MULTIPLIER;
 
             if (daysList.get(i) == 0) {
                 continue;
             }
 
-            int dayId;
-            switch (i) {
-                // sunday
-                case 0:
-                    dayId = daysList.get(i);
-                    break;
-
-                case 1:
-                    dayId = daysList.get(i);
-                    break;
-
-                case 2:
-                    dayId = daysList.get(i);
-                    break;
-
-                case 3:
-                    dayId = daysList.get(i);
-                    break;
-
-                case 4:
-                    dayId = daysList.get(i);
-                    break;
-
-                case 5:
-                    dayId = daysList.get(i);
-                    break;
-                // saturday
-                case 6:
-                    dayId = daysList.get(i);
-                    break;
-
-                default:
-                    continue;
-            }
+            // gets the id for the current day of the week in the loop
+            int dayId = getDayId(i, daysList);
 
             /* By adding (reminder id * 10) we get a completely unique number that isn't replicable
              * by another reminder with a different id. So unique id and easy to replicate
              * if you have the same reminder id
              */
-
+            int uniqueReminderId = mReminder.getId() * UNIQUE_MULTIPLIER;
             PendingIntent pendingIntent = PendingIntent.getBroadcast
                     (context, dayId + uniqueReminderId, notificationIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT);
@@ -118,8 +85,8 @@ public class AlarmHelper {
             } else {
                 calendar.set(Calendar.AM_PM, Calendar.PM);
             }
-
-            if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+            Calendar currentCal = Calendar.getInstance();
+            if (currentCal.after(calendar)) {
                 calendar.add(Calendar.DATE, 7);
             }
 
@@ -150,6 +117,11 @@ public class AlarmHelper {
         return builder.build();
     }
 
+    /**
+     * Deletes the alarms for the notification with matching pending intent.
+     *
+     * @param notification  the notification created by getNotification for this reminder
+     */
     public void deleteNotification(Notification notification) {
         Intent notificationIntent = new Intent(context, NotificationHelper.class);
 
@@ -159,50 +131,14 @@ public class AlarmHelper {
         List<Integer> daysList = mReminder.getDaysOfWeek();
 
         for (int i = 0; i < daysList.size(); i++) {
-            int uniqueReminderId = mReminder.getId() * UNIQUE_MULTIPLIER;
 
             if (daysList.get(i) == 0) {
                 continue;
             }
 
-            int dayId;
-            switch (i) {
-                // sunday
-                case 0:
-                    dayId = daysList.get(i);
-                    Toast.makeText(context, "DAY: SUN", Toast.LENGTH_SHORT).show();
-                    break;
+            int dayId = getDayId(i, daysList);
 
-                case 1:
-                    dayId = daysList.get(i);
-                    Toast.makeText(context, "DAY: MON", Toast.LENGTH_SHORT).show();
-                    break;
-
-                case 2:
-                    dayId = daysList.get(i);
-                    Toast.makeText(context, "DAY: TUE", Toast.LENGTH_SHORT).show();
-                    break;
-
-                case 3:
-                    dayId = daysList.get(i);
-                    break;
-
-                case 4:
-                    dayId = daysList.get(i);
-                    break;
-
-                case 5:
-                    dayId = daysList.get(i);
-                    break;
-                // saturday
-                case 6:
-                    dayId = daysList.get(i);
-                    break;
-
-                default:
-                    continue;
-            }
-
+            int uniqueReminderId = mReminder.getId() * UNIQUE_MULTIPLIER;
             PendingIntent pendingIntent = PendingIntent.getBroadcast
                     (context, dayId + uniqueReminderId, notificationIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT);
@@ -211,4 +147,48 @@ public class AlarmHelper {
             alarmManager.cancel(pendingIntent);
         }
     }
+
+    /**
+     * Finds the id for the day of the week for each iteration.
+     *
+     * @param index     index of the arraylist, so 6 (0 for sunday, 6 for saturday)
+     * @param daysList  index of the days of the week
+     * @return          id of the day for current iteration
+     */
+    private int getDayId(int index, List<Integer> daysList){
+        int dayId;
+        switch (index) {
+            // sunday
+            case 0:
+                dayId = daysList.get(index);
+                break;
+
+            case 1:
+                dayId = daysList.get(index);
+                break;
+
+            case 2:
+                dayId = daysList.get(index);
+                break;
+
+            case 3:
+                dayId = daysList.get(index);
+                break;
+
+            case 4:
+                dayId = daysList.get(index);
+                break;
+
+            case 5:
+                dayId = daysList.get(index);
+                break;
+            // saturday
+            default:
+                dayId = daysList.get(index);
+                break;
+        }
+        return dayId;
+    }
 }
+
+
