@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.cheekibreeki.dev.gentlereminder.adapter.MyAdapter;
 import com.cheekibreeki.dev.gentlereminder.database.DBHelper;
 import com.cheekibreeki.dev.gentlereminder.dialogs.EditReminder;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
 
@@ -23,11 +26,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private List<Reminder> reminderList;
     DBHelper db = new DBHelper(this);
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MobileAds.initialize(this, "ca-app-pub-4433736512133054~1446071203");
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         reminderList = db.getAllReminders();
 
@@ -38,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        RecyclerView.Adapter mAdapter = new MyAdapter(reminderList);
+        final RecyclerView.Adapter mAdapter = new MyAdapter(reminderList);
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration
